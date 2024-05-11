@@ -12,7 +12,9 @@ export function TransferTon() {
     "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
   );
 
-  const [tonComment, setComment] = useState("");
+  const [tonComment, setComment] = useState(
+    ""
+  );
 
   return (
     <Card>
@@ -28,7 +30,7 @@ export function TransferTon() {
           ></Input>
         </FlexBoxRow>
         <FlexBoxRow>
-          <label>To  </label>
+          <label>To </label>
           <Input
             style={{ marginRight: 8 }}
             value={tonRecipient}

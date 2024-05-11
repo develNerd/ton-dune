@@ -12,7 +12,9 @@ export function TransferTon() {
     "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
   );
 
-  const [tonComment, setComment] = useState("");
+  const [comment, setComment] = useState(
+    ""
+  );
 
   return (
     <Card>
@@ -28,7 +30,7 @@ export function TransferTon() {
           ></Input>
         </FlexBoxRow>
         <FlexBoxRow>
-          <label>To  </label>
+          <label>To </label>
           <Input
             style={{ marginRight: 8 }}
             value={tonRecipient}
@@ -39,7 +41,7 @@ export function TransferTon() {
           <label>Comment </label>
           <Input
             style={{ marginRight: 8 }}
-            value={tonComment}
+            value={comment}
             onChange={(e) => setComment(e.target.value)}
           ></Input>
         </FlexBoxRow>
@@ -50,7 +52,6 @@ export function TransferTon() {
             sender.send({
               to: Address.parse(tonRecipient),
               value: toNano(tonAmount),
-              body: comment(tonComment),
             });
           }}
         >
