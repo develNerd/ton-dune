@@ -19,9 +19,15 @@ TonDune is designed to enhance the daily interactions of users on the TON blockc
 ## Features
 
 - **AI Assistance**: Utilize AI to assist users with various tasks on the TON blockchain.
+- **Interactive Chat**: Users can interact with Dune AI through a chat interface to perform basic tasks.
+- **Balance Check**: Easily check the balance of any wallet address.
+- **Jettons Retrieval**: Get information about jettons.
+- **Transaction History**: Retrieve the transaction history of any account.
+- **Masterchain Info**: Access detailed information about the masterchain.
 - **Seamless Integration**: Easily integrate with existing TON applications and services.
 - **Advanced Analytics**: Gain insights and analytics through AI-driven data processing.
 - **User-Friendly Interface**: Designed to provide an excellent user experience with intuitive interactions.
+
 
 ## Installation
 
