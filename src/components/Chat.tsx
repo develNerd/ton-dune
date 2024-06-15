@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import ChatInput from './ChatInput';
 import Message from './Message';
 import styled from 'styled-components';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 
 interface MessageType {
@@ -25,36 +24,22 @@ const Chat: React.FC = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     var [commentAdded, setCommentAdded] = useState(0)
 
-    const ref = useRef<HTMLDivElement>(null);
 
 
+
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
-
-        Events.scrollEvent.register('begin', function () {
-            console.log("begin", arguments);
-        });
-
-        Events.scrollEvent.register('end', function () {
-            console.log("end", arguments);
-        });
-
-        // Updating scrollSpy when the component mounts.
-        scrollSpy.update();
-
-        // Returning a cleanup function to remove the registered events when the component unmounts.
-        return () => {
-            Events.scrollEvent.remove('begin');
-            Events.scrollEvent.remove('end');
-        };
 
 
 
     }, [])
 
-    const scrollToTop = () => {
-        scroll.scrollToTop();
-    }
+
 
 
 
@@ -74,48 +59,23 @@ const Chat: React.FC = () => {
     };
 
     useEffect(() => {
-        handleSetActive();
         window.console.log("commentAdded", commentAdded)
+        scrollToBottom();
     }, [commentAdded]);
 
-    const handleSetActive = () => {
-        console.log("set active");
-        scroll.scrollToBottom();
-      };
+
 
     return (
         <>
-            <Link
-                activeClass="active"
-                to="test2"
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={500}
-                containerId="containerElement"
-                onClick={() => handleSetActive()}
-            >
-                scroll
-            </Link>
 
-
-            <Element name="test1" className="element" id="containerElement" style={{
-                flex: '1',
-                flexDirection: 'column',
-                padding: '10px',
-                overflowY: 'scroll',
-                borderBottom: ' 1px solid #ddd'
-            }}>
                 <MessagesContainer>
                     {messages.map((msg, index) => (
 
                         <Message key={index} message={msg} />
                     ))}
-                    <Element name="test2" className="element">
-                        test 2
-                    </Element>
+                    <div ref={messagesEndRef} />
+
                 </MessagesContainer>
-            </Element>
             <ChatInput sendMessage={sendMessage} />
         </>
     );
