@@ -24,7 +24,7 @@ const MessageContainer = styled.div<{ sender: 'User' | 'Bot' }>`
 const Message: React.FC<MessageProps> = ({ message }) => {
   return (
     <MessageContainer sender={message.sender}>
-      <strong>{message.sender === 'User' ? '' : 'Dune Ai'}</strong> {message.text}
+      <strong>{message.sender === 'User' ? '' : 'Dune Ai'}:</strong> {message.text}
     </MessageContainer>
   );
 };

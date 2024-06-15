@@ -77,12 +77,17 @@ const Chat: React.FC = () => {
 
     return (
         <>
+
             <MessagesContainer>
                 {messages.map((msg, index) => (
 
                     <Message key={index} message={msg} />
                 ))}
                 <div ref={messagesEndRef} />
+                <div>
+                    <button onClick={handleRequest}>Send Request</button>
+                    {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+                </div>
             </MessagesContainer>
             <ChatInput sendMessage={sendMessage} />
         </>

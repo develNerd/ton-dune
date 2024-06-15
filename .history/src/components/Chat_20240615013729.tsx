@@ -27,8 +27,8 @@ const Chat: React.FC = () => {
 
     const [response, setResponse] = useState<any>(null);
 
-    const handleRequest = async (input:String) => {
-        const apiResponse = await makeApiRequest(input);
+    const handleRequest = async () => {
+        const apiResponse = await makeApiRequest();
         setResponse(apiResponse);
     };
 
@@ -52,7 +52,6 @@ const Chat: React.FC = () => {
 
     const sendMessage = (text: string) => {
         const userMessage: MessageType = { text, sender: 'User' };
-        handleRequest(text);
 
         // Append user message to the existing messages
         setMessages(prevMessages => [...prevMessages, userMessage]);
@@ -69,20 +68,24 @@ const Chat: React.FC = () => {
     useEffect(() => {
         window.console.log("commentAdded", commentAdded)
         scrollToBottom();
+        handleRequest();
     }, [commentAdded]);
-
-    
 
 
 
     return (
         <>
+
             <MessagesContainer>
                 {messages.map((msg, index) => (
 
                     <Message key={index} message={msg} />
                 ))}
                 <div ref={messagesEndRef} />
+                <div>
+                    <button onClick={handleRequest}>Send Request</button>
+                    {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+                </div>
             </MessagesContainer>
             <ChatInput sendMessage={sendMessage} />
         </>
