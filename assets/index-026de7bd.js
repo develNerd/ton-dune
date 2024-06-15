@@ -1177,7 +1177,7 @@ PERFORMANCE OF THIS SOFTWARE.
   padding: 10px;
   overflow-y: auto;
   border-bottom: 1px solid #ddd;
-`,WL=()=>{const[e,t]=zt.useState([]),n=zt.useRef(null);var[o,u]=zt.useState(0);const[i,h]=zt.useState(null),p=async m=>{const _=await zL(m);_.data.index,h(_)},g=()=>{n.current&&n.current.scrollIntoView({behavior:"smooth"})};zt.useEffect(()=>{},[]);const b=m=>{const _={text:m,sender:"User"};p(m),t(S=>[...S,_]);const M={text:"This is a dummy bot response.",sender:"Bot"};setTimeout(()=>{t(S=>[...S,M]),u(++o)},500)};return zt.useEffect(()=>{window.console.log("commentAdded",o),g()},[o]),to(K6,{children:[to(HL,{children:[e.map((m,_)=>Tr(hP,{message:m},_)),Tr("div",{ref:n})]}),Tr(uP,{sendMessage:b})]})},KL=mn.div`
+`,WL=()=>{const[e,t]=zt.useState([]),n=zt.useRef(null);var[o,u]=zt.useState(0);const[i,h]=zt.useState(null),p=async m=>{const _=await zL(m);_.data.index,h(_)},g=()=>{n.current&&n.current.scrollIntoView({behavior:"smooth"})};zt.useEffect(()=>{},[]);const b=m=>{const _={text:m,sender:"User"};p(m),t(S=>[...S,_]);const M={text:"We are exploring other ways to help you",sender:"Bot"};setTimeout(()=>{t(S=>[...S,M]),u(++o)},500)};return zt.useEffect(()=>{window.console.log("commentAdded",o),g()},[o]),to(K6,{children:[to(HL,{children:[e.map((m,_)=>Tr(hP,{message:m},_)),Tr("div",{ref:n})]}),Tr(uP,{sendMessage:b})]})},KL=mn.div`
   background: linear-gradient(to right, #007bff, #0056b3);
   padding: 10px;
   border-top-left-radius: 8px;
@@ -1232,7 +1232,6 @@ PERFORMANCE OF THIS SOFTWARE.
   background-size: cover;
   max-width: 400px;
   height: 100%;
-  max-height: 500px;
   display: flex;
   flex-direction: column;
 `;function tO(){const{network:e}=oP(),t=e?e===Ys.MAINNET?"mainnet":"Testnet":"N/A";return to(K6,{children:[Tr(JL,{}),Tr(XL,{children:to(eO,{children:[Tr(QL,{title:"Ton Dune AI",subTitle:t}),Tr(WL,{})]})})]})}const rO="https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json",nO=new E7({defaultOptions:{queries:{refetchOnWindowFocus:!1}}});Ep.createRoot(document.getElementById("root")).render(Tr(tI,{manifestUrl:rO,children:Tr(PM,{client:nO,children:Tr(tO,{})})}));
