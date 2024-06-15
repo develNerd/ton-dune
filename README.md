@@ -28,6 +28,13 @@ TonDune is designed to enhance the daily interactions of users on the TON blockc
 - **Advanced Analytics**: Gain insights and analytics through AI-driven data processing.
 - **User-Friendly Interface**: Designed to provide an excellent user experience with intuitive interactions.
 
+## Images 
+![image](https://github.com/develNerd/ton-dune/assets/37780207/a0267918-686d-4fcc-ab0a-95add6f3af84)
+![image](https://github.com/develNerd/ton-dune/assets/37780207/b57dcc53-fde2-47b4-82c5-dfde1413a3ce)
+
+## Usage
+
+@ton_dune_bot
 
 ## Installation
 
@@ -59,8 +66,6 @@ To get started with TonDune, follow these steps:
     npm start
     ```
 
-## Usage
 
-TonDune provides a set of APIs to interact with the TON blockchain. Here’s an example of how to use one of the APIs:
 
 
