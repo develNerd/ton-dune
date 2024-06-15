@@ -32,8 +32,6 @@ const Chat: React.FC = () => {
         const apiResponse = await makeApiRequest(input);
         let apiIndex = apiResponse.data.index ?? 0;
 
-        let apiData: ApiData = apiDataList[apiIndex];
-
         setResponse(apiResponse);
     };
 
