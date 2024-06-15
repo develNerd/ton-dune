@@ -1,52 +1,66 @@
-# twa-template
+# TonDune
 
-> Starter template for a new TWA interacting with the TON blockchain
+TonDune is a revolutionary project leveraging AI to assist TON users, making its features limitless. It aims to provide an excellent experience for daily users of the TON blockchain. The project is based on Google's Gemini LLM.
 
-# Overview
+## Table of Contents
 
-The project is highly-opinionated, and there are many other alternate routes it could have taken. Some examples:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Supports Ton Connect 2 wallets
-- Uses vite with react (alternative to create-react-app)
-- Uses the `ton` npm package
+## Introduction
 
-# Prerequesities
+TonDune is designed to enhance the daily interactions of users on the TON blockchain by integrating advanced AI capabilities. Powered by Google's Gemini LLM, TonDune offers a wide array of features that simplify and enrich the user experience.
 
-- Node.js v16 (other versions may work, needs more testing)
-- A TON Connect compatible wallet (e.g. [Tonkeeper](https://tonkeeper.com/))
+## Features
 
-# What does this repo contain?
+- **AI Assistance**: Utilize AI to assist users with various tasks on the TON blockchain.
+- **Interactive Chat**: Users can interact with Dune AI through a chat interface to perform basic tasks.
+- **Balance Check**: Easily check the balance of any wallet address.
+- **Jettons Retrieval**: Get information about jettons.
+- **Transaction History**: Retrieve the transaction history of any account.
+- **Masterchain Info**: Access detailed information about the masterchain.
+- **Seamless Integration**: Easily integrate with existing TON applications and services.
+- **Advanced Analytics**: Gain insights and analytics through AI-driven data processing.
+- **User-Friendly Interface**: Designed to provide an excellent user experience with intuitive interactions.
 
-- A react-based TWA-ready app, interacting with TON
-- Github actions set to deploy app to github pages
-- A script to connect a telegram bot to the deployed app
 
-# How to use
+## Installation
 
-1. Create a template from this repo with the "Use this template" button
+To get started with TonDune, follow these steps:
 
-   1. Choose a name for your repo
-   2. `**IMPORTANT!!**` mark "Include all branches", otherwise github pages deployment will not work.
-      ![image](https://user-images.githubusercontent.com/5641469/191731317-14e742fd-accb-47d4-a794-fad01148a377.png)
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/develNerd/ton-dune
+    ```
 
-2. Clone this repo and run `yarn`
+2. Navigate to the project directory:
+    ```sh
+    cd tondune
+    ```
 
-3. Create a new bot with [botfather](https://t.me/botfather)
-   1. Type `/newbot`
-   2. Choose a name for your bot, e.g. `My Ton TWA`
-   3. Choose a username for your bot, e.g. `my_ton_twa_482765_bot`
-   4. Take note of the access token, e.g. `5712441624:AAHmiHvwrrju1F3h29rlVOZLRLnv-B8ZZZ`
-   5. Run `yarn configbot` to link your bot to the webapp
+3. Install the necessary dependencies:
+    ```sh
+    npm install
+    ```
 
-# Development
+4. Set up your environment variables:
+    ```sh
+    cp .env.example .env
+    # Edit the .env file to include your configurations
+    ```
 
-1. Run `npm run dev` and edit the code as needed
-2. On push to the `main` branch, the app will be automatically deployed via github actions.
+5. Start the application:
+    ```sh
+    npm start
+    ```
 
-# Roadmap
+## Usage
 
-- [ ] Jetton transfer support
+TonDune provides a set of APIs to interact with the TON blockchain. Here’s an example of how to use one of the APIs:
 
-# License
 
-MIT
