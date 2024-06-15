@@ -3,11 +3,23 @@ import { TonConnectButton } from "@tonconnect/ui-react";
 import { Counter } from "./components/Counter";
 import { Jetton } from "./components/Jetton";
 import { TransferTon } from "./components/TransferTon";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 import { Button, FlexBoxCol, FlexBoxRow } from "./components/styled/styled";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/protocol";
 import "@twa-dev/sdk";
+import Chat from "./components/Chat";
+import Header from "./components/Header";
+
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -22,33 +34,59 @@ const StyledApp = styled.div`
 `;
 
 const AppContainer = styled.div`
-  max-width: 900px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  background-size: cover;
 `;
 
-function App() {
+const ChatContainer = styled.div`
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  background-image: url('images/chat_bg.png');   
+  background-size: cover;
+  max-width: 400px;
+  height: 100%;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+`;
+
+
+function App()  {
   const { network } = useTonConnect();
 
+  
+
   return (
-    <StyledApp>
-      <AppContainer>
-        <FlexBoxCol>
-          <FlexBoxRow>
-            <TonConnectButton />
-            <Button>
-              {network
-                ? network === CHAIN.MAINNET
-                  ? "mainnet"
-                  : "testnet"
-                : "N/A"}
-            </Button>
-          </FlexBoxRow>
-          <Counter />
-          <TransferTon />
-          <Jetton />
-        </FlexBoxCol>
-      </AppContainer>
-    </StyledApp>
+    <>
+      <GlobalStyle />
+    <AppContainer>
+    <ChatContainer>
+    <Header title="Ton Done AI" />
+      
+
+      <Chat />
+   {/*   <FlexBoxRow>
+        <TonConnectButton />
+        <Button>
+          {network
+            ? network === CHAIN.MAINNET
+              ? "mainnet"
+              : "testnet"
+            : "N/A"}
+        </Button>
+      </FlexBoxRow>
+      <Counter />
+      <TransferTon />
+      <Jetton />*/}
+    </ChatContainer>
+  </AppContainer>
+  </>
   );
 }
 
