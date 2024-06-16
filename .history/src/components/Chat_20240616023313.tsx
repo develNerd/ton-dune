@@ -33,7 +33,7 @@ const Chat: React.FC = () => {
     var [commentAdded, setCommentAdded] = useState(0)
 
     const [response, setResponse] = useState<any>(null);
-    const [duneResponse, setDuneResponse] = useState<string>("");
+    const [duneResponse, setDuneResponse] = useState<any>(null);
 
     let [walletAddres, setWalletAddress] = useState<string>();
 
@@ -60,8 +60,10 @@ const Chat: React.FC = () => {
         let query:Map<string,string> = new Map<string,string>([[apiData.queryKey,walletAddres as string]]);
         const tonResponse = await makeTonRequest(apiData.api, query);
         setDuneResponse(formatData(tonResponse));
+        const botResponse: MessageType = { text: duneResponse, sender: 'Bot' };
+        setMessages(prevMessages => [...prevMessages, botResponse]);
+        setCommentAdded(++commentAdded)
 
- 
 
 
         setResponse(apiResponse);
@@ -77,12 +79,8 @@ const Chat: React.FC = () => {
 
     useEffect(() => {
         console.log("response",wallet)
-        if(duneResponse!.length > 0){
-            const botResponse: MessageType = { text: duneResponse, sender: 'Bot' };
-            setMessages(prevMessages => [...prevMessages, botResponse]);
-            setCommentAdded(++commentAdded)
-        }
-    }, [duneResponse])
+     
+    }, [])
 
 
 

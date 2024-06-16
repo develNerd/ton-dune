@@ -38,6 +38,6 @@ export const makeTonRequest = async (api:String,query: Map<string,string>): Prom
 
 const queryString = (query: Map<string, string>): string => {
   return Array.from(query.entries())
-    .map(([key, value]) => `${key}=${value}`)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
     .join('&');
 };

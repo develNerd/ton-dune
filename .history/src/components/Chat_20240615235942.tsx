@@ -3,11 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import ChatInput from './ChatInput';
 import Message from './Message';
 import styled from 'styled-components';
-import { makeApiRequest, makeTonRequest } from '../makeRequest';
+import { makeApiRequest } from '../makeRequest';
 import { apiDataList, ApiData } from './apiData';
-import { useTonConnect } from '../hooks/useTonConnect';
-import { useCounterContract } from '../hooks/useCounterContract';
-import formatData from './formatData';
 
 
 interface MessageType {
@@ -26,43 +23,22 @@ const MessagesContainer = styled.div`
 
 const Chat: React.FC = () => {
 
-    const { sender,connected,wallet } = useTonConnect();
-   // const { value, address, sendIncrement } = useCounterContract();
+    const { connected } = useTonConnect();
+  const { value, address, sendIncrement } = useCounterContract();
     const [messages, setMessages] = useState<MessageType[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     var [commentAdded, setCommentAdded] = useState(0)
 
     const [response, setResponse] = useState<any>(null);
-    const [duneResponse, setDuneResponse] = useState<string>("");
+    const [duneResponse, setDuneResponse] = useState<any>(null);
 
-    let [walletAddres, setWalletAddress] = useState<string>();
+    const [walletAddres, setWalletAddress] = useState<any>(null);
 
     const handleRequest = async (input:String) => {
         const apiResponse = await makeApiRequest(input);
         let apiIndex = apiResponse.data.index ?? 0;
 
-        if((apiResponse.data.wallet_address as string).includes("null") == false)    {
-            setWalletAddress(apiResponse.data.wallet_address);
-            console.log("walletAddress",apiResponse.data.wallet_address)
-        }else {
-            console.log("walletAddress",wallet)
-            walletAddres = wallet as string;
-            setWalletAddress(wallet as string);
-            if(!connected){
-                const botResponse: MessageType = { text: 'Sorry I could not process your query, Try connecting to the Ton network, and try again', sender: 'Bot' };
-                setMessages(prevMessages => [...prevMessages, botResponse]);
-                setCommentAdded(++commentAdded)
-                return
-            } 
-        }
-
         let apiData: ApiData = apiDataList[apiIndex];
-        let query:Map<string,string> = new Map<string,string>([[apiData.queryKey,walletAddres as string]]);
-        const tonResponse = await makeTonRequest(apiData.api, query);
-        setDuneResponse(formatData(tonResponse));
-
- 
-
 
         setResponse(apiResponse);
     };
@@ -76,13 +52,10 @@ const Chat: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log("response",wallet)
-        if(duneResponse!.length > 0){
-            const botResponse: MessageType = { text: duneResponse, sender: 'Bot' };
-            setMessages(prevMessages => [...prevMessages, botResponse]);
-            setCommentAdded(++commentAdded)
-        }
-    }, [duneResponse])
+
+
+
+    }, [])
 
 
 
@@ -90,15 +63,18 @@ const Chat: React.FC = () => {
 
     const sendMessage = (text: string) => {
         const userMessage: MessageType = { text, sender: 'User' };
-
-        
         handleRequest(text);
 
         // Append user message to the existing messages
         setMessages(prevMessages => [...prevMessages, userMessage]);
 
         // Create and append bot response after user message
+        const botResponse: MessageType = { text: 'We are exploring other ways to help you', sender: 'Bot' };
+        setTimeout(() => {
+            setMessages(prevMessages => [...prevMessages, botResponse]);
+            setCommentAdded(++commentAdded)
 
+        }, 500); // Delay bot response to mimic real interaction
     };
 
     useEffect(() => {
@@ -122,8 +98,6 @@ const Chat: React.FC = () => {
         </>
     );
 };
-
-
 
 export default Chat;
 

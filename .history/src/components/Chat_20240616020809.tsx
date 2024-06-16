@@ -7,7 +7,6 @@ import { makeApiRequest, makeTonRequest } from '../makeRequest';
 import { apiDataList, ApiData } from './apiData';
 import { useTonConnect } from '../hooks/useTonConnect';
 import { useCounterContract } from '../hooks/useCounterContract';
-import formatData from './formatData';
 
 
 interface MessageType {
@@ -27,15 +26,15 @@ const MessagesContainer = styled.div`
 const Chat: React.FC = () => {
 
     const { sender,connected,wallet } = useTonConnect();
-   // const { value, address, sendIncrement } = useCounterContract();
+    const { value, address, sendIncrement } = useCounterContract();
     const [messages, setMessages] = useState<MessageType[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     var [commentAdded, setCommentAdded] = useState(0)
 
     const [response, setResponse] = useState<any>(null);
-    const [duneResponse, setDuneResponse] = useState<string>("");
+    const [duneResponse, setDuneResponse] = useState<any>(null);
 
-    let [walletAddres, setWalletAddress] = useState<string>();
+    const [walletAddres, setWalletAddress] = useState<any>(null);
 
     const handleRequest = async (input:String) => {
         const apiResponse = await makeApiRequest(input);
@@ -45,23 +44,20 @@ const Chat: React.FC = () => {
             setWalletAddress(apiResponse.data.wallet_address);
             console.log("walletAddress",apiResponse.data.wallet_address)
         }else {
-            console.log("walletAddress",wallet)
-            walletAddres = wallet as string;
-            setWalletAddress(wallet as string);
             if(!connected){
                 const botResponse: MessageType = { text: 'Sorry I could not process your query, Try connecting to the Ton network, and try again', sender: 'Bot' };
                 setMessages(prevMessages => [...prevMessages, botResponse]);
                 setCommentAdded(++commentAdded)
                 return
             } 
+            setWalletAddress(sender.address);
         }
 
         let apiData: ApiData = apiDataList[apiIndex];
-        let query:Map<string,string> = new Map<string,string>([[apiData.queryKey,walletAddres as string]]);
+        let query:Map<string,string> = new Map<string,string>([[apiData.queryKey ?? "",walletAddres]]);
         const tonResponse = await makeTonRequest(apiData.api, query);
         setDuneResponse(formatData(tonResponse));
 
- 
 
 
         setResponse(apiResponse);
@@ -76,12 +72,8 @@ const Chat: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log("response",wallet)
-        if(duneResponse!.length > 0){
-            const botResponse: MessageType = { text: duneResponse, sender: 'Bot' };
-            setMessages(prevMessages => [...prevMessages, botResponse]);
-            setCommentAdded(++commentAdded)
-        }
+
+     
     }, [duneResponse])
 
 
@@ -123,6 +115,34 @@ const Chat: React.FC = () => {
     );
 };
 
+type JsonObject = { [key: string]: any };
+
+function formatData(data: JsonObject | string, prefix: string = ''): string {
+    let result = '';
+
+    if (typeof data === 'string') {
+        result += data;
+        return result;
+    }
+
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            const value = data[key];
+            if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+                result += `${prefix}${key}:\n`;
+                result += formatData(value, prefix + '  ');
+            } else {
+                let formattedValue = value;
+                if (typeof value === 'string' && /^\d{1,10}$/.test(value)) {
+                    formattedValue = `**${value}**`;
+                }
+                result += `${prefix}${key}: ${formattedValue}\n`;
+            }
+        }
+    }
+
+    return result;
+}
 
 
 export default Chat;

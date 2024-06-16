@@ -82,7 +82,7 @@ const Chat: React.FC = () => {
             setMessages(prevMessages => [...prevMessages, botResponse]);
             setCommentAdded(++commentAdded)
         }
-    }, [duneResponse])
+    }, [])
 
 
 
